@@ -5,6 +5,21 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+/target/
+/bin/
+/.gradle/
+/gradle/
+/gradlew
+/gradlew.bat
+/.settings/
+/.project
+/.classpath
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+
 ### STS ###
 .apt_generated
 .classpath
