@@ -10,9 +10,17 @@ spring:
       connection-timeout: 30000
   jpa:
     hibernate:
-      ddl-auto: create-drop #validate
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/test
+          jwk-set-uri: http://localhost:8180/realms/test/protocol/openid-connect/certs
+          # Configuração para aceitar tokens JWT emitidos pelo SPI
+          audience: account

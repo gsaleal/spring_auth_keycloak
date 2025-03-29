@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,26 +25,31 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200", description = "List employees")
     })
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<EmployeesDTO>> getAll() {
         return ResponseEntity.ok(employeeService.getAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<EmployeesDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(employeeService.getById(id));
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EmployeesDTO> create(@RequestBody @Valid EmployeesDTO employeesDTO) {
         return new ResponseEntity<>(employeeService.create(employeesDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EmployeesDTO> update(@RequestBody @Valid EmployeesDTO employeesDTO, @PathVariable Long id) {
         return ResponseEntity.ok(employeeService.update(employeesDTO, id));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable Long id) {
         employeeService.delete(id);
     }
